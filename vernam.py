@@ -5,10 +5,10 @@ import sys,random,string,os
 HELP = '''Usage:
 
 To encrypt:
-python3 %s e <file>
+python3 %s e file
 
 To decrypt:
-python3 %s d <cipher> <otp>
+python3 %s d cipher otp
 
 '''%(sys.argv[0],sys.argv[0])
 
@@ -63,25 +63,28 @@ def decrypt(cipher,otp):
 
 
 if __name__ == '__main__':
-    if sys.argv[1] == 'e' and len(sys.argv) == 3:       
-        pl_file = sys.argv[2]
-        size = os.path.getsize(pl_file)
-        with open(pl_file,'rb') as f:
-            pl = f.read()
-            e = encrypt(pl,size)
-            with open(pl_file + '.cipher','wb') as c:
-                c.write(e[0])
-            with open(pl_file + '.otp','wb') as o:
-                o.write(e[1])
-    elif sys.argv[1] == 'd' and len(sys.argv) ==4:
-        with open(sys.argv[2],'rb') as c:
-            c = c.read()
-            size = os.path.getsize(sys.argv[2])
-            with open(sys.argv[3],'rb') as o:
-                o = o.read()
-                with open('decrypted','wb') as pl:
-                    pl.write(decrypt(c,o))
-    else:
+    try:
+        if sys.argv[1] == 'e' and len(sys.argv) == 3:       
+            pl_file = sys.argv[2]
+            size = os.path.getsize(pl_file)
+            with open(pl_file,'rb') as f:
+                pl = f.read()
+                e = encrypt(pl,size)
+                with open(pl_file + '.cipher','wb') as c:
+                    c.write(e[0])
+                with open(pl_file + '.otp','wb') as o:
+                    o.write(e[1])
+        elif sys.argv[1] == 'd' and len(sys.argv) ==4:
+            with open(sys.argv[2],'rb') as c:
+                c = c.read()
+                size = os.path.getsize(sys.argv[2])
+                with open(sys.argv[3],'rb') as o:
+                    o = o.read()
+                    with open('decrypted','wb') as pl:
+                        pl.write(decrypt(c,o))
+        else:
+            print(HELP)
+    except:
         print(HELP)
 
 # Debug area
