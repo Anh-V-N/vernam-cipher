@@ -11,4 +11,4 @@ To decrypt:
 python3 ./vernam.py d cipher otp
 
 <h2>Example</h2>
-
+![example](/example.png)
